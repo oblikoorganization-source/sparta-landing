@@ -1,0 +1,174 @@
+[
+  {
+    "name": "action-11",
+    "orient": "land"
+  },
+  {
+    "name": "inv-jersey",
+    "orient": "land"
+  },
+  {
+    "name": "inv-kit",
+    "orient": "land"
+  },
+  {
+    "name": "inv-backpack",
+    "orient": "land"
+  },
+  {
+    "name": "partner-global",
+    "orient": "land"
+  },
+  {
+    "name": "inv-tracksuit",
+    "orient": "port"
+  },
+  {
+    "name": "inv-bottle",
+    "orient": "port"
+  },
+  {
+    "name": "inv-bag",
+    "orient": "port"
+  },
+  {
+    "name": "coach-board",
+    "orient": "land"
+  },
+  {
+    "name": "award-cert",
+    "orient": "land"
+  },
+  {
+    "name": "award-lmr",
+    "orient": "land"
+  },
+  {
+    "name": "partner-karpatska",
+    "orient": "land"
+  },
+  {
+    "name": "partner-grema",
+    "orient": "land"
+  },
+  {
+    "name": "team-ua",
+    "orient": "land"
+  },
+  {
+    "name": "coach-ua",
+    "orient": "land"
+  },
+  {
+    "name": "inv-suits",
+    "orient": "land"
+  },
+  {
+    "name": "team-trophy",
+    "orient": "land"
+  },
+  {
+    "name": "joy-3",
+    "orient": "land"
+  },
+  {
+    "name": "team-adult",
+    "orient": "land"
+  },
+  {
+    "name": "award-lvivsport",
+    "orient": "land"
+  },
+  {
+    "name": "award-court",
+    "orient": "land"
+  },
+  {
+    "name": "award-podium",
+    "orient": "land"
+  },
+  {
+    "name": "kid-smile",
+    "orient": "port"
+  },
+  {
+    "name": "coach-portrait",
+    "orient": "port"
+  },
+  {
+    "name": "action-5",
+    "orient": "port"
+  },
+  {
+    "name": "action-6",
+    "orient": "port"
+  },
+  {
+    "name": "action-7",
+    "orient": "land"
+  },
+  {
+    "name": "action-8",
+    "orient": "land"
+  },
+  {
+    "name": "action-9",
+    "orient": "port"
+  },
+  {
+    "name": "huddle",
+    "orient": "port"
+  },
+  {
+    "name": "joy-1",
+    "orient": "port"
+  },
+  {
+    "name": "joy-2",
+    "orient": "port"
+  },
+  {
+    "name": "team-celebrate",
+    "orient": "land"
+  },
+  {
+    "name": "team-kids",
+    "orient": "land"
+  },
+  {
+    "name": "action-4",
+    "orient": "port"
+  },
+  {
+    "name": "action-2",
+    "orient": "port"
+  },
+  {
+    "name": "action-3",
+    "orient": "port"
+  },
+  {
+    "name": "highfive",
+    "orient": "port"
+  },
+  {
+    "name": "action-10",
+    "orient": "port"
+  },
+  {
+    "name": "action-1",
+    "orient": "port"
+  },
+  {
+    "name": "team-girls",
+    "orient": "port"
+  },
+  {
+    "name": "inv-promo",
+    "orient": "land"
+  },
+  {
+    "name": "team-open",
+    "orient": "land"
+  }
+]

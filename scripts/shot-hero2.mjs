@@ -1,0 +1,11 @@
+import puppeteer from "puppeteer-core";
+const CHROME = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+const b = await puppeteer.launch({ executablePath: CHROME, headless: "new", args: ["--no-sandbox", "--hide-scrollbars"], defaultViewport: { width: 1440, height: 900 } });
+const p = await b.newPage();
+await p.goto("http://localhost:3000/", { waitUntil: "domcontentloaded", timeout: 60000 });
+await new Promise((r) => setTimeout(r, 9000));
+await p.evaluate(() => document.fonts.ready);
+await new Promise((r) => setTimeout(r, 600));
+await p.screenshot({ path: "_content/_shots/hero-sparta.jpg", type: "jpeg", quality: 90 });
+await b.close();
+console.log("done");
