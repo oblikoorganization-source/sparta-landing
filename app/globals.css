@@ -3853,12 +3853,17 @@ html, body { overflow-x: clip; }
   .loc-chips { gap: 8px; }
   .loc-chips span { font-size: 0.74rem; padding: 9px 13px; }
 
-  /* one-line stroke titles: allow wrap on small screens */
-  .iv4-title--one { white-space: normal; }
+  /* one-line stroke titles: allow wrap on small screens, but keep them big */
+  .iv4-title--one { white-space: normal; font-size: clamp(2.5rem, 11vw, 3.4rem); }
 
   /* inventory (05): drop the "Від кросівок до клюшки" badge — it doesn't
      fit on one line and looks cramped next to the kicker on phones */
   .iv-badge { display: none; }
+
+  /* media (06): 6 reel columns become thin slivers on phones — show a 2×2
+     grid of 4 reels, matching the hero reelwall layout */
+  .mvidbg { grid-template-columns: repeat(2, 1fr); }
+  .mvidbg video:nth-child(n + 5) { display: none; }
 }
 
 /* ============================================================
