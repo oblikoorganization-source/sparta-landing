@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useReelWall } from "@/lib/useReelWall";
 
 // Hero reels (chosen by content). The wall of muted looping videos behind the
 // typographic poster.
@@ -9,23 +10,8 @@ const HERO_REELS = ["DXmdIfcDOwl", "DZHZo0JMPGk", "DXz52EyMsjM", "DXmdM2WjILT"];
 export default function Hero() {
   const wrap = useRef<HTMLDivElement>(null);
 
-  // Pause hero videos when scrolled out of view — frees CPU/GPU for the rest.
-  useEffect(() => {
-    const el = wrap.current;
-    if (!el) return;
-    const vids = Array.from(el.querySelectorAll("video"));
-    const io = new IntersectionObserver(
-      ([e]) => {
-        vids.forEach((v) => {
-          if (e.isIntersecting) v.play().catch(() => {});
-          else v.pause();
-        });
-      },
-      { threshold: 0.05 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  // Lazy-load + play on desktop; on phones the poster image shows (no decoders).
+  useReelWall(wrap);
 
   return (
     <div ref={wrap}>
@@ -34,12 +20,12 @@ export default function Hero() {
           {HERO_REELS.map((id) => (
             <video
               key={id}
-              src={`/video/reel-${id}.mp4`}
-              autoPlay
+              data-src={`/video/reel-${id}.mp4`}
+              poster={`/video/poster-${id}.jpg`}
               muted
               loop
               playsInline
-              preload="auto"
+              preload="none"
             />
           ))}
         </div>

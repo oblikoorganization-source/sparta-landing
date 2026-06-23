@@ -14,7 +14,10 @@ export default function SmoothScroll({
 }) {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    // On phones/tablets, native scroll is smoother than a JS RAF loop that fires
+    // ScrollTrigger.update + reflow on every frame. Skip Lenis on touch.
+    if (reduce || touch) return;
 
     const lenis = new Lenis({
       duration: 1.2,

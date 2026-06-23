@@ -3888,3 +3888,54 @@ html, body { overflow-x: clip; }
   /* trim the oversized base block padding on tablet */
   .block { padding-block: clamp(60px, 8vw, 96px); }
 }
+
+/* ============================================================
+   ANDROID PERFORMANCE — kill the per-frame compositing work that
+   tanks FPS on Android (backdrop-filter, full-screen blend & radial
+   paints, infinite paint-based animations). Scoped to .is-android
+   (set before paint in layout) so iOS + desktop stay pixel-identical;
+   these effects are barely visible on small screens anyway.
+   ============================================================ */
+/* backdrop-filter blur is one of the most expensive things to repaint per
+   scroll frame on Android GPUs — replace every instance with a solid fill */
+html.is-android .hdr.scrolled {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(8, 8, 10, 0.94);
+}
+html.is-android .hero__eyebrow {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(12, 12, 16, 0.55);
+}
+html.is-android .clubv6__tag {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: rgba(10, 10, 14, 0.72);
+}
+html.is-android .mv3--bg .sv--1 .mbignum,
+html.is-android .sv--3 .mbignum {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* full-screen film-grain overlay blends the WHOLE viewport every frame —
+   invisible on dense phone screens, very costly */
+html.is-android body::after { display: none; }
+
+/* large radial "red glow" layers painted full-screen on 6+ sections at once */
+html.is-android .loc-sec::after,
+html.is-android .stats-full::after,
+html.is-android .gal-sec::after,
+html.is-android .camp-sec::after,
+html.is-android .partners-sec::after,
+html.is-android .contacts-sec::after,
+html.is-android .av-vidbg::after { display: none; }
+
+/* infinite box-shadow pulses repaint forever (paint, not composite) */
+html.is-android .hero__dot,
+html.is-android .clubv6__tag-r i { animation: none; }
+
+/* don't animate box-shadow on the auto-cycling stat cards */
+html.is-android .stx2--0 .st,
+html.is-android .sv--3 .mbignum { transition: none; }

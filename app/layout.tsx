@@ -42,6 +42,14 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <head>
+        {/* Tag Android before paint so the perf-CSS overrides apply with no flash.
+            Android (phones+tablets) chokes on the heavy compositing; iOS doesn't. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(/android/i.test(navigator.userAgent))document.documentElement.classList.add('is-android')}catch(e){}",
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

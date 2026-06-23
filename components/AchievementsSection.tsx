@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useReelWall } from "@/lib/useReelWall";
 
 // dynamic gameplay clips, all different from the hero
 const VID_REELS = ["DYNec_yM9x2", "DYNej2iMn96", "DXz5QLvsxgs", "DZHZ0zSMr1k"];
@@ -20,24 +21,23 @@ const ACH = [
 export default function AchievementsSection() {
   const root = useRef<HTMLElement>(null);
 
-  // play bg videos only while the section is on screen
-  useEffect(() => {
-    const el = root.current;
-    if (!el) return;
-    const vids = Array.from(el.querySelectorAll("video"));
-    const io = new IntersectionObserver(([e]) => {
-      vids.forEach((vd) => (e.isIntersecting ? vd.play().catch(() => {}) : vd.pause()));
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  // Lazy-load + play on desktop; on phones the poster image shows (no decoders).
+  useReelWall(root);
 
   return (
     <section id="palmares" className="block block--ink pal-sec" ref={root}>
       <div className="av-vidbg" aria-hidden="true">
         <div className="av-vidbg__grid">
           {VID_REELS.map((id) => (
-            <video key={id} src={`/video/reel-${id}.mp4`} autoPlay muted loop playsInline preload="auto" />
+            <video
+              key={id}
+              data-src={`/video/reel-${id}.mp4`}
+              poster={`/video/poster-${id}.jpg`}
+              muted
+              loop
+              playsInline
+              preload="none"
+            />
           ))}
         </div>
       </div>

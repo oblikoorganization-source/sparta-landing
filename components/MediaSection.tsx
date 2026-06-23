@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReelWall } from "@/lib/useReelWall";
 
 /* Copy/figures from the client's dialog: «Спарта тренуємо» в кожному відео,
    мільйони переглядів щомісяця в TikTok та Instagram. */
@@ -32,32 +33,22 @@ export default function MediaSection() {
     return () => clearInterval(id);
   }, []);
 
-  // play background videos only while the section is on screen
-  useEffect(() => {
-    const vids = Array.from(root.current!.querySelectorAll("video"));
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          const el = e.target as HTMLVideoElement;
-          if (e.isIntersecting) {
-            if (!el.src) el.src = el.dataset.src || "";
-            el.play().catch(() => {});
-          } else {
-            el.pause();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    vids.forEach((v) => io.observe(v));
-    return () => io.disconnect();
-  }, []);
+  // Lazy-load + play on desktop; on phones the poster image shows (no decoders).
+  useReelWall(root);
 
   return (
     <section className="block block--ink iv-sec iv-sec--full media-sec media-sec--bg" id="media" ref={root}>
       <div className="mvidbg" aria-hidden="true">
         {REELS.map((id) => (
-          <video key={id} data-src={`/video/reel-${id}.mp4`} muted loop playsInline preload="none" />
+          <video
+            key={id}
+            data-src={`/video/reel-${id}.mp4`}
+            poster={`/video/poster-${id}.jpg`}
+            muted
+            loop
+            playsInline
+            preload="none"
+          />
         ))}
       </div>
       <div className="mvidbg__veil" aria-hidden="true" />

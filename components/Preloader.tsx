@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isAndroid } from "@/lib/device";
 
-// Warm up the heavy hero assets (reels + key images) behind the curtain,
-// so when it lifts everything plays instantly with no lag.
-const ASSETS = [
+// Warm up the heavy hero assets behind the curtain so it plays instantly.
+// Android never decodes the hero videos (poster image only) — so there we warm
+// only the light images, never the multi-MB reels. iOS/desktop play, so warm all.
+const IMAGES = ["/images/team-celebrate.jpg", "/images/action-1.jpg", "/images/logo.png"];
+const HERO_VIDS = [
   "/video/reel-DXmdIfcDOwl.mp4",
   "/video/reel-DZHZo0JMPGk.mp4",
   "/video/reel-DXz52EyMsjM.mp4",
   "/video/reel-DXmdM2WjILT.mp4",
-  "/images/team-celebrate.jpg",
-  "/images/action-1.jpg",
-  "/images/logo.png",
 ];
 
 export default function Preloader() {
@@ -25,8 +25,11 @@ export default function Preloader() {
       return;
     }
     document.body.style.overflow = "hidden";
+    const android = isAndroid();
+    // On Android skip the heavy reels entirely (they never play) + shorter curtain.
+    const ASSETS = android ? IMAGES : [...HERO_VIDS, ...IMAGES];
     const start = performance.now();
-    const MIN = 1700;
+    const MIN = android ? 800 : 1700;
     let loaded = 0;
     let fetchedDone = false;
     let finished = false;
