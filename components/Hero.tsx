@@ -38,6 +38,10 @@ export default function Hero() {
           <h1 className="display">
             <span className="l1">SPARTA</span>
             <span className="l2">ТРЕНУЄМО</span>
+            <span className="sr-only">
+              {" "}— флорбольний клуб у Львові: тренування з флорболу для дітей
+              і дорослих та продаж флорбольного інвентарю
+            </span>
           </h1>
           <p className="hero__lead lead">
             Флорбол для дітей і дорослих — від 4 до 50 років. І найбільший в

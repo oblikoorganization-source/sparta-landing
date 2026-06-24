@@ -17,7 +17,31 @@ const IMAGES = [
   "team-adult", "action-11",
 ];
 
-const slides = IMAGES.map((s) => ({ src: `/images/${s}.jpg` }));
+// descriptive, keyword-rich alt per photo (image SEO + a11y) — no duplicates
+const ALT: Record<string, string> = {
+  "action-1": "Гравець ФК «Спарта» веде мʼяч під час матчу з флорболу, Львів",
+  "action-2": "Атака команди «Спарта» у грі з флорболу",
+  "action-3": "Боротьба за мʼяч на флорбольному матчі ФК «Спарта»",
+  "action-4": "Кидок по воротах на змаганнях із флорболу «Спарта»",
+  "action-5": "Флорболіст «Спарти» в ігровому епізоді",
+  "action-7": "Командна гра ФК «Спарта» на турнірі з флорболу",
+  "action-8": "Гравці «Спарти» в атаці на флорбольному майданчику",
+  "action-9": "Динамічний момент матчу з флорболу ФК «Спарта»",
+  "action-10": "Воротар «Спарти» рятує ворота у флорболі",
+  "action-11": "Ігровий момент турніру з флорболу «Спарта», Львів",
+  "joy-1": "Юні флорболісти «Спарти» радіють перемозі",
+  "joy-2": "Команда ФК «Спарта» святкує гол",
+  "joy-3": "Емоції перемоги на турнірі з флорболу «Спарта»",
+  "team-kids": "Дитяча команда ФК «Спарта» з флорболу, Львів",
+  "team-girls": "Жіноча команда «Спарти» з флорболу",
+  "team-adult": "Доросла команда ФК «Спарта» з флорболу",
+  "highfive": "Гравці «Спарти» вітають одне одного на тренуванні з флорболу",
+  "kid-smile": "Юний флорболіст ФК «Спарта» на тренуванні у Львові",
+  "coach-board": "Тренер Данило Ревега пояснює тактику флорболу команді «Спарта»",
+  "huddle": "Команда ФК «Спарта» налаштовується перед матчем із флорболу",
+};
+
+const slides = IMAGES.map((s) => ({ src: `/images/${s}.jpg`, alt: ALT[s] }));
 
 // real proportions of every photo → mosaic tiles match them = no crop
 const DIMS: Record<string, [number, number]> = {
@@ -84,7 +108,7 @@ export default function GallerySection() {
                   style={{ aspectRatio: `${DIMS[src][0]} / ${DIMS[src][1]}` }}
                   onClick={() => setOpen(i)}
                 >
-                  <img src={`/images/thumb/${src}.jpg`} alt="ФК Спарта — момент гри" loading="lazy" />
+                  <img src={`/images/thumb/${src}.jpg`} alt={ALT[src] ?? "ФК «Спарта» — флорбол"} loading="lazy" />
                   <span className="galx__zoom" aria-hidden="true">+</span>
                 </figure>
               ))}
