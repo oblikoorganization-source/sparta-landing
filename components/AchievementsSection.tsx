@@ -6,16 +6,20 @@ import { useReelWall } from "@/lib/useReelWall";
 // dynamic gameplay clips, all different from the hero
 const VID_REELS = ["DYNec_yM9x2", "DYNej2iMn96", "DXz5QLvsxgs", "DZHZ0zSMr1k"];
 
-// verified from the client's autobiography (dialog-full.md) — real titles
-const ACH = [
-  { y: "2024", t: "Чемпіони України · сезон 2023/24" },
-  { y: "2025", t: "100 кращих дитячих тренерів року" },
-  { y: "2024", t: "100 кращих дитячих тренерів року" },
-  { y: "2023", t: "Бронза Lemberg Christmas Challenge" },
-  { y: "2022", t: "Переможець Alliance Autumn Cup" },
+// one chronological list — player + coach + kids' titles (verified: voice 24.06 / dialog-full.md)
+// tag "вихованці" = won by his school/kids (keeps the personal/school distinction lightweight)
+const ACH: { y: string; t: string; tag?: string }[] = [
+  { y: "10/11", t: "Переможець Західноукраїнської ліги" },
+  { y: "2017", t: "Переможець «Hrubieszów Cup» · Польща" },
+  { y: "17/18", t: "Чемпіон України · U16" },
+  { y: "2018", t: "Дебют за збірну України U19" },
+  { y: "2019", t: "Капітан збірної України U19" },
+  { y: "18/19", t: "Чемпіон України · Вища Ліга" },
+  { y: "19/20", t: "Чемпіон України · Вища Ліга" },
+  { y: "2022", t: "Переможець Alliance Autumn Cup · U-15", tag: "вихованці" },
+  { y: "2023", t: "Бронза Lemberg Christmas Challenge", tag: "вихованці" },
   { y: "19–23", t: "Тренер жіночої збірної України" },
-  { y: "2020", t: "100 кращих дитячих тренерів року" },
-  { y: "2016", t: "Срібло «Ukraine Open» · бронза «Кубку Янтаря»" },
+  { y: "23/24", t: "Чемпіони України · U14", tag: "вихованці" },
 ];
 
 export default function AchievementsSection() {
@@ -44,15 +48,7 @@ export default function AchievementsSection() {
       <div className="av-veil" style={{ opacity: 0.7 }} aria-hidden="true" />
 
       <div className="wrap">
-        <div className="av av--1 hov--0">
-          <div className="av-list">
-            {ACH.map((a, i) => (
-              <div className="av-row" key={i}>
-                <span className="av-y">{a.y}</span>
-                <span className="av-t">{a.t}</span>
-              </div>
-            ))}
-          </div>
+        <div className="av av--split">
           <div className="av-head">
             <div className="ck">
               <span className="ck__num">03</span>
@@ -64,10 +60,32 @@ export default function AchievementsSection() {
               </span>{" "}
               <span className="red">список</span>
             </h2>
-            <p className="lead" style={{ marginTop: 16 }}>
-              Доведено на майданчику й визнано офіційно — від нагород міста до
-              тренерського штабу збірної України.
+            <p className="lead" style={{ marginTop: 12 }}>
+              Доведено на майданчику й визнано офіційно — від власної кар'єри
+              гравця та тренера до титулів наших вихованців.
             </p>
+          </div>
+
+          <div className="av-list av-list--one hov--0">
+            {ACH.map((a, i) => (
+              <div className="av-row" key={i}>
+                <span className="av-y">{a.y}</span>
+                <span className="av-t">
+                  {a.t}
+                  {a.tag && <span className="av-tag">{a.tag}</span>}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="av-award">
+            <span className="av-award__big">3×</span>
+            <div className="av-award__body">
+              <span className="av-award__t">«100 кращих тренерів року»</span>
+              <span className="av-award__sub">
+                за версією Львівської міської ради · зі всіх видів спорту
+              </span>
+            </div>
           </div>
         </div>
       </div>
