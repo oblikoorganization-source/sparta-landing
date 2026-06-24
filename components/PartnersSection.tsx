@@ -33,6 +33,7 @@ const PARTNERS: Partner[] = [
     desc: "Виробник рішень із нержавіючої сталі та холодильного обладнання. Активно інвестують у клуб.",
     give: "Фінансова підтримка",
     lg: true,
+    url: "https://www.instagram.com/grema.ua",
   },
   {
     src: "partner-global-c",
