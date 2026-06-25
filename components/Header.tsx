@@ -61,7 +61,7 @@ export default function Header() {
     <header className={`hdr${scrolled ? " scrolled" : ""}${open ? " is-open" : ""}`}>
       <div className="hdr__in">
         <a href="#top" className="brand" onClick={close}>
-          <img src="/images/logo.png" alt="" className="brand__logo" />
+          <img src="/images/logo.png" alt="ФК «Спарта» — флорбол Львів" className="brand__logo" />
           <span className="brand__txt">SPAR<b>TA</b></span>
         </a>
 

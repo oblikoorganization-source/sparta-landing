@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
@@ -6,13 +6,13 @@ import Cursor from "@/components/Cursor";
 import Progress from "@/components/Progress";
 import Preloader from "@/components/Preloader";
 
-const SITE = "https://sparta.lviv.ua";
+const SITE = "https://flcsparta.com.ua";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: "СПАРТА — флорбольний клуб у Львові · тренування та інвентар",
   description:
-    "Флорбольний клуб «Спарта», Львів. Тренування для дітей і дорослих (вік 4–50), 4 локації на Сихові. Найбільший вибір флорбольного інвентарю в Україні: клюшки, м'ячі, взуття, аксесуари. Експертний підбір від гравця та тренера.",
+    "Флорбольний клуб «Спарта», Львів. Тренування для дітей і дорослих + найбільший в Україні вибір флорбольного інвентарю: клюшки для флорболу, взуття, мʼячі. Доставка по Україні.",
   keywords: [
     "флорбол",
     "флорбол Львів",
@@ -26,11 +26,18 @@ export const metadata: Metadata = {
     title: "СПАРТА — флорбольний клуб у Львові",
     description:
       "Тренування для дітей і дорослих + найбільший вибір флорбольного інвентарю в Україні.",
-    url: SITE,
+    url: `${SITE}/`,
     siteName: "ФК «SPARTA»",
     locale: "uk_UA",
     type: "website",
-    images: ["/images/team-celebrate.jpg"],
+    images: [
+      {
+        url: "/images/team-celebrate.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ФК «Спарта» — флорбольний клуб у Львові",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -39,8 +46,17 @@ export const metadata: Metadata = {
       "Тренування з флорболу для дітей і дорослих + найбільший вибір флорбольного інвентарю в Україні.",
     images: ["/images/team-celebrate.jpg"],
   },
-  alternates: { canonical: SITE },
-  icons: { icon: "/favicon.png" },
+  alternates: { canonical: `${SITE}/` },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.png",
+  },
+  manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0c",
 };
 
 // Structured data (Schema.org) — invisible, parameterised by SITE so it tracks
@@ -78,14 +94,29 @@ const SCHEMA = {
       sameAs: SAME_AS,
     },
     {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      url: SITE,
+      name: "ФК «SPARTA» — флорбол Львів",
+      inLanguage: "uk-UA",
+      publisher: { "@id": `${SITE}/#organization` },
+    },
+    {
       "@type": "SportsActivityLocation",
       "@id": `${SITE}/#location-main`,
       name: "ФК «SPARTA» — тренування з флорболу (Сихів, Львів)",
       parentOrganization: { "@id": `${SITE}/#organization` },
       url: SITE,
+      image: `${SITE}/images/team-celebrate.jpg`,
       address: ADDRESS,
       hasMap:
         "https://www.google.com/maps/search/?api=1&query=Drahana%207%2C%20Lviv%2C%20Ukraine",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: "https://t.me/flcsparta",
+        availableLanguage: ["uk"],
+      },
       sameAs: SAME_AS,
     },
     {
@@ -121,11 +152,31 @@ const SCHEMA = {
             },
             availability: "https://schema.org/InStock",
           },
-          { "@type": "OfferCatalog", name: "Мʼячі для флорболу" },
-          { "@type": "OfferCatalog", name: "Взуття для залу" },
-          { "@type": "OfferCatalog", name: "Ворота та пасери" },
-          { "@type": "OfferCatalog", name: "Захист (воротарський і польовий)" },
-          { "@type": "OfferCatalog", name: "Аксесуари" },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Product", name: "Мʼячі для флорболу", category: "Floorball balls" },
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Product", name: "Взуття для залу", category: "Indoor court shoes" },
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Product", name: "Ворота та пасери", category: "Floorball goals & rebounders" },
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Product", name: "Захист (воротарський і польовий)", category: "Protective gear" },
+            availability: "https://schema.org/InStock",
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Product", name: "Аксесуари", category: "Accessories" },
+            availability: "https://schema.org/InStock",
+          },
         ],
       },
     },
@@ -171,7 +222,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Big+Shoulders+Display:wght@700;800;900&family=Unbounded:wght@700;800;900&family=Syne:wght@700;800&family=Archivo+Black&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
           rel="stylesheet"
         />
         <script
