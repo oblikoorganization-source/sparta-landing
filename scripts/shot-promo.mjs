@@ -15,7 +15,7 @@ await new Promise((r) => setTimeout(r, 900));
 await page.mouse.move(720, 60);
 await page.screenshot({ path: "_content/_shots/promo-badge.jpg", type: "jpeg", quality: 88 });
 // open the modal
-await page.click(".promo-badge");
+await page.click(".promo-seal");
 await new Promise((r) => setTimeout(r, 900));
 await page.screenshot({ path: "_content/_shots/promo-modal.jpg", type: "jpeg", quality: 88 });
 await browser.close();

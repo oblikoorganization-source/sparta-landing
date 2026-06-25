@@ -3986,49 +3986,88 @@ body::after {
 .pcard4-cell > .pcard4 { flex: 1; }
 /* card-as-link: no link chrome, keep card look */
 a.pcard4 { text-decoration: none; color: inherit; cursor: pointer; }
-.promo-badge {
+/* circular "seal" — discount label with revolving text around it.
+   Sits as a rotating sticker on the corner of the Global card. */
+.promo-seal {
   position: absolute;
-  top: -13px;
-  right: -10px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
+  top: -26px;
+  right: -22px;
+  z-index: 4;
+  width: 104px;
+  height: 104px;
+  padding: 0;
   border: 0;
   cursor: pointer;
-  border-radius: 999px;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+  filter: drop-shadow(0 10px 26px rgba(229, 31, 38, 0.45));
+  transition: transform 0.3s var(--ease);
+  animation: promoBob 3.4s ease-in-out infinite;
+}
+.promo-seal:hover { transform: scale(1.08); }
+/* the rotating text ring */
+.promo-seal__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: promoSpin 9s linear infinite;
+}
+.promo-seal:hover .promo-seal__ring { animation-duration: 4s; }
+.promo-seal__ring text {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: #fff;
-  background: linear-gradient(135deg, #ff2a31, #c4161c);
-  box-shadow: 0 8px 24px -6px rgba(229, 31, 38, 0.7);
-  animation: promoPulse 1.8s ease-in-out infinite;
-  transition: transform 0.25s var(--ease);
+  fill: #fff;
 }
-.promo-badge b { font-weight: 800; margin-left: 3px; }
-.promo-badge:hover {
-  transform: scale(1.07) rotate(-1.5deg);
-  animation-play-state: paused;
-}
-.promo-badge__spark {
-  width: 8px;
-  height: 8px;
+/* solid red disc with the headline benefit */
+.promo-seal__core {
+  position: absolute;
+  inset: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.9);
-  animation: promoSpark 1.8s ease-in-out infinite;
+  color: #fff;
+  line-height: 1;
+  background: radial-gradient(120% 120% at 30% 25%, #ff3b42, #c4161c 70%);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.85),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.15),
+    0 6px 18px -4px rgba(0, 0, 0, 0.5);
+  animation: promoCorePulse 1.8s ease-in-out infinite;
 }
-@keyframes promoPulse {
-  0%, 100% { box-shadow: 0 8px 24px -6px rgba(229, 31, 38, 0.5); }
-  50% { box-shadow: 0 8px 34px -2px rgba(229, 31, 38, 0.95), 0 0 0 6px rgba(229, 31, 38, 0.12); }
+.promo-seal__benefit {
+  font-family: var(--display, var(--mono));
+  font-weight: 800;
+  font-size: 1.18rem;
+  letter-spacing: -0.01em;
 }
-@keyframes promoSpark {
-  0%, 100% { opacity: 0.5; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.3); }
+.promo-seal__sub {
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+@keyframes promoSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes promoBob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+@keyframes promoCorePulse {
+  0%, 100% { box-shadow: inset 0 0 0 2px rgba(255,255,255,0.85), inset 0 0 0 4px rgba(255,255,255,0.15), 0 6px 18px -4px rgba(0,0,0,0.5); }
+  50% { box-shadow: inset 0 0 0 2px rgba(255,255,255,0.9), inset 0 0 0 4px rgba(255,255,255,0.18), 0 6px 22px -2px rgba(229,31,38,0.7), 0 0 0 5px rgba(229,31,38,0.14); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo-seal, .promo-seal__ring, .promo-seal__core { animation: none; }
 }
 
 .promo-modal {

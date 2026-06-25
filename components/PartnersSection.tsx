@@ -132,13 +132,30 @@ export default function PartnersSection() {
                 {card}
                 <button
                   type="button"
-                  className="promo-badge"
+                  className="promo-seal"
                   onClick={() => setPromoOpen(true)}
-                  aria-label="Промокод від SPARTA"
+                  aria-label={`Отримати знижку ${PROMO.benefit} — промокод SPARTA`}
                 >
-                  <span className="promo-badge__spark" aria-hidden="true" />
-                  <span className="promo-badge__txt">
-                    Промокод <b>{PROMO.benefit}</b>
+                  <svg
+                    className="promo-seal__ring"
+                    viewBox="0 0 100 100"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <path
+                        id="promoSealPath"
+                        d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0"
+                      />
+                    </defs>
+                    <text>
+                      <textPath href="#promoSealPath" startOffset="0">
+                        ОТРИМАТИ ЗНИЖКУ · ПРОМОКОД SPARTA ·&nbsp;
+                      </textPath>
+                    </text>
+                  </svg>
+                  <span className="promo-seal__core" aria-hidden="true">
+                    <span className="promo-seal__benefit">{PROMO.benefit}</span>
+                    <span className="promo-seal__sub">знижка</span>
                   </span>
                 </button>
               </div>
